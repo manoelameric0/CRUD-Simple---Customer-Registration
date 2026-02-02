@@ -108,34 +108,120 @@ public class GClient
 
     public void EditClient()
     {
-        System.Console.Write("CPF: ");
-        string cpf = Console.ReadLine();
+        string newEmail = null, newName = null, cpf = null;
 
-        Client client = _clients.Find(c => c.CPF == cpf);
-
-        System.Console.Write("New Name: ");
-        string newName = Console.ReadLine();
-
-        System.Console.WriteLine("Edit Email? 'y' or 'n'");
-        string yesOrno = Console.ReadLine();
-
-        yesOrno.ToLower();
-
-        if (yesOrno == "y")
+        while (true)
         {
-            System.Console.Write("New Email: ");
-            string newEmail = Console.ReadLine();
-            client.Name = newName;
-            client.Email = newEmail;
-        }
-        else if (yesOrno == "n")
-        {
+            if (cpf == null)
+            {
+                System.Console.Write("Digite o CPF para alterar o Nome e Email.");
+                cpf = Console.ReadLine();
+            }
+            if (!VCpf(cpf))
+            {
+                System.Console.WriteLine("Invalid CPF!");
+                cpf = null;
+                continue;
+            }
+            if (VCpf(cpf))
+            {
+                Client client = _clients.Find(c => c.CPF == cpf);
+
+                System.Console.Write($"\nUser : {client.Name}\n\n1- change New Name\n2- change New Email\n\ntype 1 or 2: ");
+                string nameOremail = Console.ReadLine();
+
+                switch (nameOremail)
+                {
+                    case "1":
+                        if (newName == null)
+                        {
+                            System.Console.Write("New Name: ");
+                            newName = Console.ReadLine();
+                        }
+                        if (!VName(newName))
+                        {
+                            System.Console.WriteLine("Invalid New Name!");
+                            newName = null;
+                            continue;
+                        }
+                         System.Console.WriteLine("Change Email? 'y' or 'n'");
+                        string yesOrno = Console.ReadLine();
+
+                        yesOrno.ToLower();
+
+                        if (yesOrno == "y")
+                        {
+                            if (newEmail == null)
+                            {
+                                System.Console.Write("New Email: ");
+                                newEmail = Console.ReadLine();
+                            }
+                            if (!VEmail(newEmail))
+                            {
+                                System.Console.WriteLine("Invalid New Email!");
+                                newEmail = null;
+                                continue;
+                            }
+                            client.Name = newName;
+                            client.Email= newEmail;
+                        }
+                        else if (yesOrno == "n")
+                        {
+                            client.Name = newName;
+                        }
+                        System.Console.WriteLine($"Sucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
+                        break;
+                    case "2":
+                        if (newEmail == null)
+                        {
+                            System.Console.Write("New Email: ");
+                            newEmail = Console.ReadLine();
+                        }
+                        if (!VEmail(newEmail))
+                        {
+                            System.Console.WriteLine("Invalid New Name!");
+                            newEmail = null;
+                            continue;
+                        }
+                        System.Console.WriteLine("Change Name? 'y' or 'n'");
+                        string yesOrnoN = Console.ReadLine();
+
+                        yesOrnoN.ToLower();
+
+                        if (yesOrnoN == "y")
+                        {
+                            if (newName == null)
+                            {
+                                System.Console.Write("New Name: ");
+                                newName = Console.ReadLine();
+                            }
+                            if (!VName(newName))
+                            {
+                                System.Console.WriteLine("Invalid New Name!");
+                                newName = null;
+                                continue;
+                            }
+                            client.Name = newName;
+                            client.Email = newEmail;
+                        }
+                        else if (yesOrnoN == "n")
+                        {
+                            client.Email = newEmail;
+                        }
+                        System.Console.WriteLine($"Sucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
+                        break;
+                    default:
+                        System.Console.WriteLine("Invalid Options");
+                        break;
+                }
+                break;
+
+
+
+            }
+
 
         }
-        {
-            client.Name = newName;
-        }
-        System.Console.WriteLine($"Sucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
     }
 
     public void ViewClient()
