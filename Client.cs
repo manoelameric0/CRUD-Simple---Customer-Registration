@@ -2,9 +2,9 @@
 {
     public string Name { get; set; }
     public string Email { get; set; }
-    public int CPF { get; private set; }
+    public string CPF { get; private set; }
 
-    public Client(string name, string email, int cpf)
+    public Client(string name, string email, string cpf)
     {
         Name = name;
         Email = email;

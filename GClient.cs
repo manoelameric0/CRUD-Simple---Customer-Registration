@@ -13,153 +13,90 @@ public class GClient
             return _clients;
         }
     }
+    string Name;
 
-
+     public bool Validation()
+    {
+         System.Console.Write("Name: ");
+        string name = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(name) || int.TryParse(name, out int b))
+        {
+            System.Console.WriteLine("Invalid Name!");
+            return false;
+        }
+        Name = name;
+        return true;
+    }
+    
     public void AddClient()
     {
-        Console.Write("Name: ");
-        string name = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            System.Console.WriteLine("It is not possible to add a person without a name!");
-        }
-        if (int.TryParse(name, out int a))
-        {
-            System.Console.WriteLine("It is not possible to have a name with numeric values! Only characters are allowed.");
-        }
+        
+        Validation();
+        
+        System.Console.Write("Email: ");
+        string emailString = Console.ReadLine();
 
-        Console.Write("Email: ");
-        string email = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            System.Console.WriteLine("It is not possible to add an email without characters!");
-        }
-        if (int.TryParse(email, out int b))
-        {
-            System.Console.WriteLine("It is not possible to have a numeric email! Only characters are allowed.");
-        }
-
-        Console.Write("CPF: ");
+        System.Console.Write("CPF: ");
         string cpfString = Console.ReadLine();
-        if (!int.TryParse(cpfString, out int cpf))
-        {
-            System.Console.WriteLine("Enter a numeric value");
-        }
-        var client = new Client(name, email, cpf);
-        _clients.Add(client);
 
-        Console.WriteLine();
+        var client = new Client(Name, emailString, cpfString);
+        _clients.Add(client);
+        System.Console.WriteLine("Sucess");
     }
+    
+    
+   
 
     public void EditClient()
     {
-        Console.Write("Write CPF: ");
-        string cpfString = Console.ReadLine();
-        if (!int.TryParse(cpfString, out int cpf))
-        {
-            System.Console.WriteLine("Enter a numeric value");
-        }
+        System.Console.Write("CPF: ");
+        string cpf = Console.ReadLine();
 
-        Client client = Clients.Find(c => c.CPF == cpf);
+        Client client = _clients.Find(c => c.CPF == cpf);
 
-        Console.Write("What's new name? ");
-        string newName = Console.ReadLine();
-        if (string.IsNullOrWhiteSpace(newName))
-        {
-            System.Console.WriteLine("It is not possible to add a person without a name!");
-        }
-        if (int.TryParse(newName, out int a))
-        {
-            System.Console.WriteLine("It is not possible to have a name with numeric values! Only characters are allowed.");
-        }
+        System.Console.Write("New Name: ");
+        string newName =Console.ReadLine();
 
-        Console.Write("Change email (Y or N)? ");
-        string yesOrNoString = Console.ReadLine();
-        if (!char.TryParse(yesOrNoString, out char yesOrNo))
-        {
-            System.Console.WriteLine("Type only ‘y’ or ‘n’");
-        }
-        yesOrNo = char.ToLower(yesOrNo);
+        System.Console.WriteLine("Edit Email? 'y' or 'n'");
+        string yesOrno = Console.ReadLine();
 
-        if (yesOrNo == 'y')
+        yesOrno.ToLower();
+
+        if (yesOrno == "y")
         {
-            Console.Write("What's new email? ");
+            System.Console.Write("New Email: ");
             string newEmail = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(newName))
-            {
-                System.Console.WriteLine("It is not possible to add a person without a name!");
-            }
-            if (int.TryParse(newName, out int b))
-            {
-                System.Console.WriteLine("It is not possible to have a name with numeric values! Only characters are allowed.");
-            }
-            Console.Write("Name and email updated successfully!: ");
             client.Name = newName;
             client.Email = newEmail;
         }
-        else if (yesOrNo == 'n')
+        else if (yesOrno == "n")
         {
-            Console.Write("Name updated successfully!: ");
+            
+        }
+        {
             client.Name = newName;
         }
-        else
-        {
-            Console.WriteLine("Something went wrong. Please try again.");
-        }
-
+        System.Console.WriteLine($"Sucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
     }
 
     public void ViewClient()
     {
-        foreach (Client client in Clients)
+        foreach (var item in _clients)
         {
-            Console.WriteLine($"Name: {client.Name}");
-            Console.WriteLine($"Email: {client.Email}");
-            Console.WriteLine($"CPF: {client.CPF}");
-
-            Console.WriteLine();
-
+            System.Console.WriteLine($"Name: {item.Name} ");
+            System.Console.WriteLine($"Email: {item.Email}");
+            System.Console.WriteLine($"CPF: {item.CPF}\n");
         }
     }
 
     public void RemoveClient()
     {
-        Console.Write("Write CPF: ");
+        System.Console.Write("CPF: ");
         string cpfString = Console.ReadLine();
-        if (!int.TryParse(cpfString, out int cpf))
-        {
-            System.Console.WriteLine("Enter a numeric value");
-        }
 
-        Client client = Clients.Find(c => c.CPF == cpf);
-
-        Console.Write("He is sure? (Y or N) ");
-        string yesOrNoString = Console.ReadLine();
-        if (!char.TryParse(yesOrNoString, out char yesOrNo))
-        {
-            System.Console.WriteLine("Type only ‘y’ or ‘n’");
-        }
-        yesOrNo = char.ToLower(yesOrNo);
-
-        if (yesOrNo == 'y')
-        {
-            if (client != null)
-            {
-                Clients.Remove(client);
-                System.Console.WriteLine("Customer removed successfully!");
-            }
-            else
-            {
-                Console.WriteLine("User not found");
-            }
-        }
-        else if (yesOrNo == 'n')
-        {
-            Console.WriteLine("The user will not be removed.");
-        }
-        else
-        {
-            Console.WriteLine("Option invalid");
-        }
+        Client client = Clients.Find(c => c.CPF == cpfString);
+        Clients.Remove(client);
+        System.Console.WriteLine("Remove Sucessfuly");
     }
+    
 }

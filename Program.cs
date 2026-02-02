@@ -22,10 +22,14 @@ public class Program
             Console.WriteLine("4 - Remove");
             Console.WriteLine("5 - Nothing");
 
-            int operation = int.Parse(Console.ReadLine()!);
+            string operation = Console.ReadLine();
+            if (!int.TryParse(operation, out int a))
+            {
+                System.Console.WriteLine("Invalid\nWrite 1 at 5");
+            }
             
 
-            switch (operation)
+            switch (a)
             {
                 case 1:
                     adm.AddClient();
