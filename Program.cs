@@ -48,9 +48,11 @@ public class Program
                     break;
 
                 default:
-                    Console.WriteLine("Option invalid!");
+                    Console.Clear();
+                    Console.WriteLine("\nOption invalid!");
                     break;
             }
+            
         }
         
     }

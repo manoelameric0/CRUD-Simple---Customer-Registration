@@ -11,4 +11,12 @@
         CPF = cpf;
     }
 
+    public string setCPF
+    {
+        set
+        {
+            CPF = value;
+        }
+    }
+
 }
