@@ -2,12 +2,11 @@
 
 public class Program
 {
-    
+
     static void Main()
     {
         var adm = new GClient();
-        Console.WriteLine("Welcome!");
-        Console.WriteLine();
+
 
 
 
@@ -16,6 +15,8 @@ public class Program
         while (execution)
         {
 
+            Console.WriteLine("===Welcome!===");
+            Console.WriteLine();
             Console.WriteLine("1 - Add");
             Console.WriteLine("2 - Edit");
             Console.WriteLine("3 - View");
@@ -27,7 +28,7 @@ public class Program
             {
                 System.Console.WriteLine("Invalid\nWrite 1 at 5");
             }
-            
+
 
             switch (a)
             {
@@ -52,8 +53,8 @@ public class Program
                     Console.WriteLine("\nOption invalid!");
                     break;
             }
-            
+
         }
-        
+
     }
 }
