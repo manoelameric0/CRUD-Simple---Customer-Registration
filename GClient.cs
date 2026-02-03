@@ -95,7 +95,7 @@ public class GClient
             {
                 var client = new Client(name, email, cpf);
                 _clients.Add(client);
-                System.Console.WriteLine("\nAdd Sucess");
+                System.Console.WriteLine("\nAdded successfully!\n");
                 break;
             }
         }
@@ -114,7 +114,8 @@ public class GClient
         {
             if (cpf == null)
             {
-                System.Console.Write("Digite o CPF para alterar o Nome e Email ou -1 para sair: ");
+                System.Console.WriteLine("\nEnter the CPF to change the name and email, or -1 to exit.");
+                System.Console.Write("CPF: ");
                 cpf = Console.ReadLine();
                 escolha = cpf;
             }
@@ -134,7 +135,8 @@ public class GClient
                     continue;
                 }
 
-                System.Console.Write($"\nUser : {client.Name}\n\n1- change New Name\n2- change New Email\n\ntype 1 or 2: ");
+                Console.Clear();
+                System.Console.Write($"\nUser : {client.Name}\n\n1- change New Name\n2- change New Email\n3- Back to menu\n\ntype 1 - 2 or 3: ");
                 string nameOremail = Console.ReadLine();
 
                 switch (nameOremail)
@@ -144,7 +146,8 @@ public class GClient
                         {
                             if (newName == null)
                             {
-                                System.Console.Write("New Name\n or -1 exit : ");
+                                System.Console.WriteLine("Enter the new name or -1 to go back.");
+                                System.Console.Write("New Name: ");
                                 newName = Console.ReadLine();
                                 escolha = newName;
                             }
@@ -154,11 +157,11 @@ public class GClient
                                 newName = null;
                                 continue;
                             }
-                            System.Console.WriteLine("Change Email? 'y' or 'n'");
+                            System.Console.WriteLine("Do you want to change the email? 'y' or 'n'");
                             string yesOrnoString = Console.ReadLine();
                             if (!char.TryParse(yesOrnoString, out char yOrn))
                             {
-                                System.Console.WriteLine("Invalid type only 'y' or 'n'");
+                                System.Console.WriteLine("Invalid type only 'y' or 'n'\n");
                                 continue;
                             }
 
@@ -168,6 +171,7 @@ public class GClient
                             {
                                 if (newEmail == null)
                                 {
+                                    System.Console.WriteLine("Enter the new Email or -1 to go back.");
                                     System.Console.Write("New Email: ");
                                     newEmail = Console.ReadLine();
                                     escolha = newEmail;
@@ -185,13 +189,14 @@ public class GClient
                             {
                                 client.Name = newName;
                             }
-                            System.Console.WriteLine($"Sucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
+                            System.Console.WriteLine($"\nSucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
                             break;
                         }
                         break;
                     case "2":
                         if (newEmail == null)
                         {
+                            System.Console.WriteLine("Enter the new Email or -1 to go back.");
                             System.Console.Write("New Email: ");
                             newEmail = Console.ReadLine();
                             escolha = newEmail;
@@ -202,7 +207,7 @@ public class GClient
                             newEmail = null;
                             continue;
                         }
-                        System.Console.WriteLine("Change Name? 'y' or 'n'");
+                        System.Console.WriteLine("Do you want to change the name? 'y' or 'n'");
                         string yesOrnoC = Console.ReadLine();
                         if (!char.TryParse(yesOrnoC, out char yOrn2))
                         {
@@ -215,8 +220,10 @@ public class GClient
                         {
                             if (newName == null)
                             {
+                                System.Console.WriteLine("Enter the new name or -1 to go back.");
                                 System.Console.Write("New Name: ");
                                 newName = Console.ReadLine();
+                                escolha = newName;
                             }
                             if (!VName(newName))
                             {
@@ -231,11 +238,14 @@ public class GClient
                         {
                             client.Email = newEmail;
                         }
-                        System.Console.WriteLine($"Sucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
+                        System.Console.WriteLine($"\nSucessfuly!\nNew name: {client.Name}\nNew Email: {client.Email}\nCPF: {client.CPF}");
+                        break;
+
+                    case "3":
                         break;
                     default:
-                        System.Console.WriteLine("Invalid Options");
-                        break;
+                        System.Console.WriteLine("\nInvalid Options");
+                        continue;
                 }
                 break;
 
@@ -251,6 +261,7 @@ public class GClient
     {
         foreach (var item in _clients)
         {
+            Console.Clear();
             System.Console.WriteLine($"\nName: {item.Name} ");
             System.Console.WriteLine($"Email: {item.Email}");
             System.Console.WriteLine($"CPF: {item.CPF}\n");
@@ -263,27 +274,30 @@ public class GClient
 
         while (escolha != "-1")
         {
-            System.Console.WriteLine("-1 exit");
+            System.Console.WriteLine("\nEnter the CPF to remove, or -1 to exit.");
             System.Console.Write("CPF: ");
             string cpfString = Console.ReadLine();
             escolha = cpfString;
 
-            if (!VCpf(cpfString))
+            if (escolha != "-1")
             {
-                System.Console.WriteLine("Invalid CPF!");
+                if (!VCpf(cpfString))
+            {
+                System.Console.WriteLine("\nInvalid CPF!");
                 continue;
             }
 
             Client client = Clients.Find(c => c.CPF == cpfString);
             if (client == null)
             {
-                System.Console.WriteLine("Client not found!");
+                System.Console.WriteLine("\nClient not found!");
             }
             else
             {
                 Clients.Remove(client);
-                System.Console.WriteLine("Remove Sucessfuly");
+                System.Console.WriteLine("\nRemove Sucessfuly");
                 break;
+            }
             }
         }
     }

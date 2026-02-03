@@ -15,21 +15,23 @@ public class Program
         while (execution)
         {
 
-            Console.WriteLine("===Welcome!===");
+            Console.WriteLine("\n===Welcome!===");
             Console.WriteLine();
             Console.WriteLine("1 - Add");
             Console.WriteLine("2 - Edit");
             Console.WriteLine("3 - View");
             Console.WriteLine("4 - Remove");
-            Console.WriteLine("5 - Nothing");
+            Console.WriteLine("5 - Exit");
+            System.Console.Write("Choose: ");
 
             string operation = Console.ReadLine();
             if (!int.TryParse(operation, out int a))
             {
-                System.Console.WriteLine("Invalid\nWrite 1 at 5");
+                System.Console.WriteLine("Invalid choice. Choose from 1 to 5.");
             }
 
-
+            System.Console.WriteLine();
+            
             switch (a)
             {
                 case 1:
